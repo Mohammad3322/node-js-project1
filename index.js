@@ -7,16 +7,14 @@ const app = express();
 
 app.use(express.json());
 
-mongoose
-  .connect(
-    "mongodb+srv://MohammadAli:dC2qcMw2TnHY878d@cluster0.lifg2vk.mongodb.net/",
-  )
-  .then(() => {
-    console.log("connected with DB successfully");
-  })
-  .catch((error) => {
-    console.log("error with connecting with DB");
-  });
+// mongoose
+//   .connect("mongodb://localhost/tarmeez")
+//   .then(() => {
+//     console.log("connected with DB successfully");
+//   })
+//   .catch((error) => {
+//     console.log("error with connecting with DB");
+//   });
 
 app.get("/", (req, res) => {
   res.send("Hello in nodejs project");
@@ -96,18 +94,26 @@ app.delete("/articles/:articleId", async (req, res) => {
   }
 });
 
-// const start = async () => {
-//   try {
-//     await mongoose.connect("mongodb://localhost/tarmeez");
-//     console.log("Database connected");
-//   } catch (err) {
-//     console.error("Database connection failed:", err);
-//     throw err;
-//   }
-
-// };
+const start = async () => {
+  try {
+    mongoose
+      .connect(
+        "mongodb+srv://MohammadAli:dC2qcMw2TnHY878d@cluster0.lifg2vk.mongodb.net/",
+      )
+      .then(() => {
+        console.log("connected with DB successfully");
+      })
+      .catch((error) => {
+        console.log("error with connecting with DB");
+      });
+    console.log("Database connected");
+  } catch (err) {
+    console.error("Database connection failed:", err);
+    throw err;
+  }
+};
 app.listen(3000, async () => {
   console.log("server is running at port 3000");
 });
 
-// start();
+start();
